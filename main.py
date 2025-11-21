@@ -12,7 +12,7 @@ app.secret_key = "your_secret_key"
 
 
 # ---------- Settings for comparison -----------
-ANGLE_TOLERANCE = 40.0  # degrees allowed per joint
+ANGLE_TOLERANCE = 80.0  # degrees allowed per joint
 SIDE_TO_TRACK = "both"
 ANGLE_COLUMNS = ["right_elbow", "right_shoulder_torso", "left_elbow", "left_shoulder_torso"]
 
@@ -104,16 +104,24 @@ def video_to_angles(video_path):
 
 
 def compare_angles(df_ref, df_user):
+    """Compare angles with temporal normalization for consistency"""
     n_ref = len(df_ref)
     n_user = len(df_user)
-    n = min(n_ref, n_user)
+    
+    # Normalize user video to reference length
+    if n_user != n_ref:
+        user_indices = np.linspace(0, n_user - 1, n_ref).astype(int)
+        df_user_normalized = df_user.iloc[user_indices].reset_index(drop=True)
+    else:
+        df_user_normalized = df_user
+    
     scores = []
-
-    for i in range(n):
+    for i in range(n_ref):
         f_ref = df_ref.iloc[i]
-        f_user = df_user.iloc[i]
+        f_user = df_user_normalized.iloc[i]
         correct_joints = 0
         total_joints = 0
+        
         for col in ANGLE_COLUMNS:
             a_ref = f_ref[col]
             a_user = f_user[col]
@@ -122,10 +130,13 @@ def compare_angles(df_ref, df_user):
                 diff = abs(a_ref - a_user)
                 if diff <= ANGLE_TOLERANCE:
                     correct_joints += 1
+        
         frame_score = (correct_joints / total_joints * 100) if total_joints > 0 else 0
         scores.append(frame_score)
+    
     avg_score = np.mean(scores) if scores else 0
     return avg_score
+
 
 
 def get_latest_reference_video():
@@ -155,7 +166,7 @@ def process_video_and_create_animation(video_path, output_animation_path):
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     stick_frames = []
 
-    with mp_pose.Pose(static_image_mode=False, min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
+    with mp_pose.Pose(static_image_mode=False, min_detection_confidence=0.7, min_tracking_confidence=0.7) as pose:
         frame_count = 0
         while True:
             ret, frame = cap.read()
