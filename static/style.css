@@ -1,0 +1,166 @@
+:root {
+  --bg-light: #f0f2f5;
+  --text-light: #1c2534;
+  --button-bg-light: #3468c5;
+
+  --bg-dark: #1a1b1f;
+  --text-dark: #f5f6fa;
+  --button-bg-dark: #39414d;
+}
+
+body {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Layout and logo */
+.container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 20px auto;
+  width: 500px;
+}
+
+/* Header & toggle button */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+#modeToggle {
+  cursor: pointer;
+  font-size: 22px;
+  background: none;
+  border: none;
+  color: var(--text-light);
+  transition: color 0.3s;
+}
+
+/* Headline */
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Button row */
+.buttons,
+nav.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+/* Style buttons for Bootstrap override */
+.btn {
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(52, 104, 197, 0.15);
+  transition: background-color 0.3s;
+}
+
+/* About section */
+.about {
+  background-color: #eaf2fa;
+  padding: 20px 24px;
+  border-radius: 10px;
+  color: #334e65;
+  font-size: 1.05rem;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.about h2 {
+  margin-top: 0;
+  color: #234374;
+}
+
+.shadow-sm {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10) !important;
+}
+
+/* Dark mode implementation */
+body.dark {
+  background-color: var(--bg-dark) !important;
+  color: var(--text-dark) !important;
+}
+
+body.dark .container,
+body.dark .about {
+  background-color: #23262a !important;
+  color: var(--text-dark) !important;
+}
+
+body.dark .btn,
+body.dark .btn-primary,
+body.dark .btn-outline-secondary {
+  background-color: var(--button-bg-dark) !important;
+  color: #fafafa !important;
+  border-color: #555 !important;
+}
+
+body.dark .btn-primary:hover,
+body.dark .btn-outline-secondary:hover {
+  background-color: #556 !important;
+  color: #fff !important;
+}
+
+body.dark h1,
+body.dark h2,
+body.dark h3 {
+  color: var(--text-dark) !important;
+}
+
+body.dark .shadow-sm {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.45) !important;
+}
+/* Dark mode for list items text */
+body.dark .list-group-item {
+  background-color: #23262a !important;
+  color: #f5f6fa !important;
+  border-color: #444 !important;
+}
+
+/* Force text color for movement names */
+body.dark .movement-item {
+  color: #f5f6fa !important;
+}
+/* Responsive for mobile */
+@media (max-width: 580px) {
+  .container {
+    padding: 8px;
+  }
+
+  .buttons,
+  nav.buttons {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .headline {
+    font-size: 1.2rem;
+  }
+
+  .logo {
+    max-width: 110px;
+  }
+}

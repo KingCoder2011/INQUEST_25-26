@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SyncSense</title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body class="bg-light">
+  <div class="container py-4">
+    <header class="d-flex justify-content-between align-items-center mb-4">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="SyncSense Logo" class="logo" />
+      <button id="modeToggle" aria-label="Toggle dark/light mode" class="btn btn-outline-secondary">🌙</button>
+    </header>
+
+    <h1 class="text-center mb-4">Real-Time Movement Analytics &amp; Feedback</h1>
+
+    <nav class="d-flex justify-content-center gap-3 mb-4">
+      <a href="{{ url_for('scan_video') }}" class="btn btn-primary px-4">Scan Video</a>
+      <a href="{{ url_for('compare_movements') }}" class="btn btn-primary px-4">Compare Preset Movements</a>
+      <a href="{{ url_for('how_to_use') }}" class="btn btn-primary px-4">How to Use</a>
+    </nav>
+
+    <section class="about bg-white shadow-sm rounded p-4 text-center mx-auto" style="max-width: 600px;">
+      <h2 class="mb-3">About SyncSense</h2>
+      <p>SyncSense is a platform which delivers real-time biomechanical feedback and personalized correction cues during practice, enabling athletes and patients to perfect technique instantly without constant manual supervision.</p>
+    </section>
+  </div>
+
+  <!-- Bootstrap JS for optional interactivity (keep below other scripts) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

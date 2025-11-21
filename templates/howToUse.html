@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SyncSense - How to use</title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" crossorigin="anonymous" />
+</head>
+<body class="bg-light">
+  <div class="container py-4">
+    <header class="d-flex justify-content-between align-items-center mb-4">
+      <img src="{{ url_for('static', filename='logo.png') }}" 
+           alt="SyncSense Logo" 
+           class="logo" style="max-width: 160px;" />
+      <button id="modeToggle" aria-label="Toggle dark/light mode" class="btn btn-outline-secondary">🌙</button>
+    </header>
+
+    <nav class="d-flex justify-content-center mb-4">
+      <a href="{{ url_for('home') }}" class="btn btn-primary px-4"><i class="fas fa-arrow-left me-2"></i>Back</a>
+    </nav>
+
+    <section class="about bg-white shadow-sm rounded p-4 text-center mx-auto" style="max-width: 600px;">
+      <h2 class="mb-3">How to use SyncSense</h2>
+      <div>
+        <p>This website helps injured individuals and athletes correct their movements to prevent stress and injuries.</p>
+        <p><strong>There are two ways to use SyncSense:</strong></p>
+        <ol class="mb-3 text-start" style="display: inline-block;">
+          <li>
+            <strong>Using preset movements</strong><br>
+            SyncSense comes loaded with sample movements you can select and practice.
+          </li>
+          <li>
+            <strong>Scanning a video (not 100% accurate!)</strong><br>
+            Upload a clear video of someone performing a movement (e.g., badminton smash).
+            Our AI will detect and store the movement.
+          </li>
+        </ol>
+        <p>
+          After choosing a movement, upload a video of you performing the action.
+          SyncSense will compare your movement to the reference and show you what's correct and what needs improvement.
+          This can be done repeatedly until you are able to perform the action successfully.
+        </p>
+      </div>
+    </section>
+  </div>
+  <!-- Bootstrap JS for optional interactivity -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

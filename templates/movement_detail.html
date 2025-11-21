@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Practice {{ display_name }} - SyncSense</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body class="bg-light">
+  <div class="container py-4">
+    <header class="d-flex justify-content-between align-items-center mb-4">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="SyncSense Logo" class="logo" />
+      <button id="modeToggle" aria-label="Toggle dark/light mode" class="btn btn-outline-secondary">🌙</button>
+    </header>
+
+    <h1 class="text-center mb-4">Practice {{ display_name }}</h1>
+
+    <div class="text-center mb-3">
+      <a href="{{ url_for('view_movement', movement_name=movement_name) }}" class="btn btn-outline-primary">Back to Video</a>
+    </div>
+
+    <!-- Upload Form -->
+    <div class="card mx-auto" style="max-width: 600px;">
+      <div class="card-body">
+        <h5 class="card-title">Upload Your Practice Video</h5>
+        <p class="text-muted">Upload a video of yourself performing the {{ display_name }} to get your accuracy score.</p>
+        
+        <div class="alert alert-info" role="alert">
+          <strong>📹 Tips for best results:</strong>
+          <ul class="mb-0 mt-2">
+            <li>Record yourself performing the {{ display_name }}</li>
+            <li>Ensure good lighting and clear visibility of your body</li>
+            <li>Keep the camera stable and at a similar angle to the reference</li>
+            <li>Upload the video in MP4 format</li>
+          </ul>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="user_video" class="form-label">Select Your MP4 Video:</label>
+            <input class="form-control" type="file" id="user_video" name="user_video" accept="video/mp4,.mp4" required>
+            <div class="form-text">Only MP4 format accepted</div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Analyze My Performance</button>
+        </form>
+
+        {% if success %}
+        <div class="alert alert-success mt-4" role="alert">
+          <h5 class="alert-heading">✅ Analysis Complete!</h5>
+          <hr>
+          <p class="mb-0"><strong>{{ success }}</strong></p>
+        </div>
+        {% endif %}
+
+        {% if score %}
+        <div class="mt-4">
+          <div class="card {% if score >= 80 %}bg-success{% elif score >= 60 %}bg-warning{% else %}bg-danger{% endif %} text-white">
+            <div class="card-body text-center">
+              <h2 class="display-1 mb-3">{{ score }}%</h2>
+              <h4>{{ display_name }} Accuracy</h4>
+              <hr class="bg-white">
+              <p class="mb-0">
+                {% if score >= 80 %}
+                  🎉 Excellent! Your {{ display_name }} technique is spot on!
+                {% elif score >= 60 %}
+                  👍 Good job! Keep practicing to perfect your {{ display_name }}.
+                {% else %}
+                  💪 Keep practicing! Review the reference video for guidance.
+                {% endif %}
+              </p>
+            </div>
+          </div>
+          
+          <!-- Action buttons after score -->
+          <div class="mt-3 d-grid gap-2">
+            <button onclick="location.reload()" class="btn btn-outline-primary">Try Again</button>
+            <a href="{{ url_for('view_movement', movement_name=movement_name) }}" class="btn btn-outline-secondary">Watch Reference Video</a>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="alert alert-danger mt-3" role="alert">
+          ❌ {{ error }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
